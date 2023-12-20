@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GIF Website</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div class="box">
+        <div class="search-container">
+            <input type="text" id="search-box" value="Project">
+            <button id="submit-btn">Search</button>
+        </div>
+        <p id="text">Wait For 1 to 2 minute Plz !!!! </p>
+        <div class="loader"></div>
+        <div class="wrapper"></div>
+    </div>
+    <!-- API Key -->
+    <script src="./api-key.js"></script>
+    <!-- Script -->
+    <script src="./javascript.js"></script>
+</body>
+
+<!-- dynamic hot serach -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var searchBox = document.getElementById('search-box');
+        var submitBtn = document.getElementById('submit-btn');
+
+        // Function to automatically click the search button
+        function autoClick() {
+            submitBtn.click();
+        }
+
+        // Event listener for the 'input' event on the search box
+        searchBox.addEventListener('input', function () {
+            // Clear any existing timeout
+            // if (this.value.trim() === '') {
+            //     this.value = 'Project';
+            // } else {
+            clearTimeout(this.timeout);
+            // Set a new timeout to delay the automatic click
+            this.timeout = setTimeout(autoClick, 1000); // Adjust the delay time as needed
+            // }
+        });
+    });
+</script>
+
+
+<!-- If user nothing enters -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var searchBox = document.getElementById('search-box');
+        var submitBtn = document.getElementById('submit-btn');
+        var delayTime = 4000; // 10 seconds in milliseconds
+
+        // Function to automatically click the search button
+        function autoClick() {
+            submitBtn.click();
+        }
+
+        // Event listener for the 'input' event on the search box
+        searchBox.addEventListener('input', function () {
+            // Clear any existing timeout for inserting 'Project'
+            clearTimeout(this.insertTimeout);
+
+            // If the search box is empty, insert 'Project' with a delay
+            if (searchBox.value.trim() === '') {
+                this.insertTimeout = setTimeout(function () {
+                    searchBox.value = 'Project';
+                    autoClick(); // Optionally click the search button after inserting 'Project'
+                }, delayTime);
+            } else {
+                // If the search box is not empty, clear the timeout for inserting 'Project'
+                clearTimeout(this.insertTimeout);
+            }
+        });
+    });
+</script>
+
+</html>
